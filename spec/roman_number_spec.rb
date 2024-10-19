@@ -5,6 +5,7 @@ RSpec.describe RomanNumber do
     context 'valid format' do
       where(:roman_value, :integer_value) do
         [
+          ['',       0],
           ['I',      1],
           ['II',     2],
           ['III',    3],
