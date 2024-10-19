@@ -1,6 +1,9 @@
 require './src/roman_number'
+require './src/romanizer'
 
-valid_samples = %w[
+romanizer = Romanizer.new
+
+roman_values = %w[
   I
   CDXLIV
   CMXCIX
@@ -8,21 +11,20 @@ valid_samples = %w[
   MMMCMXCIX
 ]
 
-valid_samples.each do |sample|
-  roman_number = RomanNumber.new(sample)
-  puts "#{sample} => #{roman_number.to_i}"
+roman_values.each do |roman_value|
+  puts "#{roman_value} => #{romanizer.deromanize(roman_value)}"
 end
 
 puts '' # New line
 
-invalid_samples = %w[
-  VIIII
-  MMMM
+integer_values = [
+  1,
+  444,
+  999,
+  2024,
+  3999
 ]
 
-invalid_samples.each do |sample|
-  RomanNumber.new(sample)
-  puts "#{sample} => Unexpectedly, no error was raised"
-rescue ArgumentError => e
-  puts "#{sample} => #{e.message}"
+integer_values.each do |integer_value|
+  puts "#{integer_value} => #{romanizer.romanize(integer_value)}"
 end
