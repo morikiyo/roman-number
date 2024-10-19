@@ -48,17 +48,13 @@ class RomanNumber
   end
 
   def to_i
-    normalize_value.chars.map { |char| CHAR_INT_MAP[char] }.sum
+    @value.gsub('IV','IIII')
+          .gsub('IX','VIIII')
+          .gsub('XL','XXXX')
+          .gsub('XC','LXXXX')
+          .gsub('CD','CCCC')
+          .gsub('CM','DCCCC')
+          .chars
+          .map { |char| CHAR_INT_MAP[char] }.sum
   end
-
-  private
-
-    def normalize_value
-      @value.gsub('IV','IIII')
-            .gsub('IX','VIIII')
-            .gsub('XL','XXXX')
-            .gsub('XC','LXXXX')
-            .gsub('CD','CCCC')
-            .gsub('CM','DCCCC')
-    end
 end
