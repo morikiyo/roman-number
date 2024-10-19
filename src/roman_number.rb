@@ -11,6 +11,15 @@ class RomanNumber
     'M' => 1000
   }.freeze
 
+  NORMALIZATION_MAP = {
+    'IV' => 'IIII',
+    'IX' => 'VIIII',
+    'XL' => 'XXXX',
+    'XC' => 'LXXXX',
+    'CD' => 'CCCC',
+    'CM' => 'DCCCC',
+  }
+
   def initialize(value)
     raise ArgumentError, 'Invalid Roman Number' unless value.match?(FORMAT)
 
@@ -28,11 +37,8 @@ class RomanNumber
   private
 
     def normalize_value
-      @value.gsub('IV', 'IIII')
-            .gsub('IX', 'VIIII')
-            .gsub('XL', 'XXXX')
-            .gsub('XC', 'LXXXX')
-            .gsub('CD', 'CCCC')
-            .gsub('CM', 'DCCCC')
+      RomanNumber::NORMALIZATION_MAP.inject(@value) do |value, (from_str, to_str)|
+        value.gsub(from_str, to_str)
+      end
     end
 end
