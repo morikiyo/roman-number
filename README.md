@@ -1,18 +1,3 @@
 # roman-number
 
-```sh
-ruby sample.rb
-```
-
-## Usage Example
-
-```ruby
-  roman_number = RomanNumber.new('MMMCMXCIX')
-  roman_number.to_i # convert to integer from roman-number string.
-```
-
-## Test (rspec)
-
-```sh
-bundle exec rspec
-```
+[第4回スキルアップ勉強会「あなたもチャレンジ！コードレビューライブ 〜伊藤淳一からの挑戦状〜」](https://sonicgarden.connpass.com/event/332113/)
