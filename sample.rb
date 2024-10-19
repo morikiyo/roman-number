@@ -8,20 +8,6 @@ def romanize(value)
   RomanNumber.convert_from_integer(value).to_s
 end
 
-roman_values = %w[
-  I
-  CDXLIV
-  CMXCIX
-  MMXXIV
-  MMMCMXCIX
-]
-
-roman_values.each do |roman_value|
-  puts "#{roman_value} => #{deromanize(roman_value)}"
-end
-
-puts '' # New line
-
 integer_values = [
   1,
   444,
@@ -30,6 +16,16 @@ integer_values = [
   3999
 ]
 
-integer_values.each do |integer_value|
-  puts "#{integer_value} => #{romanize(integer_value)}"
+roman_values = integer_values.map do |integer_value|
+  roman_value = romanize(integer_value)
+
+  puts "#{integer_value} => #{roman_value}"
+
+  roman_value
+end
+
+puts '' # New line
+
+roman_values.each do |roman_value|
+  puts "#{roman_value} => #{deromanize(roman_value)}"
 end
