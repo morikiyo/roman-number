@@ -82,7 +82,7 @@ RSpec.describe RomanNumber do
 
     with_them do
       it 'raise ArgumentError' do
-        expect { described_class.new(roman_value) }.to raise_error(ArgumentError, "Invalid Roman Number, #{roman_value}")
+        expect { described_class.new(roman_value) }.to raise_error(ArgumentError, "Invalid format (given #{roman_value})")
       end
     end
   end

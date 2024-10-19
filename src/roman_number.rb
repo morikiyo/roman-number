@@ -13,8 +13,8 @@ class RomanNumber
 
   class << self
     def convert_from_integer(value)
-      raise ArgumentError, 'Not integer.' unless value.is_a?(Integer)
-      raise ArgumentError, 'Out of range (0..3999)' unless (0..3999).cover?(value)
+      raise ArgumentError, "Expected integer, got #{value}" unless value.is_a?(Integer)
+      raise ArgumentError, "Expected 0 to 3999, got #{value}" unless (0..3999).cover?(value)
 
       roman_value, _ = [1000, 100, 10, 1].inject(['', value]) do |(s, i), divisor|
         [
@@ -38,7 +38,7 @@ class RomanNumber
   end
 
   def initialize(value)
-    raise ArgumentError, "Invalid Roman Number, #{value}" unless value.match?(FORMAT)
+    raise ArgumentError, "Invalid format (given #{value})" unless value.match?(FORMAT)
 
     @value = value
   end
