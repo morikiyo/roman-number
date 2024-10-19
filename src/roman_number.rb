@@ -20,8 +20,42 @@ class RomanNumber
     'CM' => 'DCCCC',
   }
 
+  class << self
+    def convert_from_integer(value)
+      raise ArgumentError, 'Not integer.' unless value.is_a?(Integer)
+      raise ArgumentError, 'Out of range (0..3999)' unless (0..3999).cover?(value)
+
+      tmp_value = value
+      chars = []
+
+      chars << 'M' * (tmp_value / 1000)
+      tmp_value %= 1000
+
+      chars << 'C' * (tmp_value / 100)
+      tmp_value %= 100
+
+      chars << 'X' * (tmp_value / 10)
+      tmp_value %= 10
+
+      chars << 'I' * tmp_value
+
+      RomanNumber.new(
+        chars.join
+             .gsub(/C{9}/, 'CM')
+             .gsub(/C{5}/, 'D')
+             .gsub(/C{4}/, 'CD')
+             .gsub(/X{9}/, 'XC')
+             .gsub(/X{5}/, 'L')
+             .gsub(/X{4}/, 'XL')
+             .gsub(/I{9}/, 'IX')
+             .gsub(/I{5}/, 'V')
+             .gsub(/I{4}/, 'IV')
+      )
+    end
+  end
+
   def initialize(value)
-    raise ArgumentError, 'Invalid Roman Number' unless value.match?(FORMAT)
+    raise ArgumentError, "Invalid Roman Number, #{value}" unless value.match?(FORMAT)
 
     @value = value
   end

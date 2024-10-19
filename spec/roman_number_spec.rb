@@ -1,7 +1,7 @@
 require './src/roman_number'
 
 RSpec.describe RomanNumber do
-  describe '#to_i' do
+  describe '#to_i, .convert_from_integer' do
     where(:roman_value, :integer_value) do
       [
         ['',       0],
@@ -45,10 +45,12 @@ RSpec.describe RomanNumber do
     end
 
     with_them do
-      let(:roman_number) { described_class.new(roman_value) }
-
       it 'returns integer value' do
-        expect(roman_number.to_i).to eq(integer_value)
+        expect(described_class.new(roman_value).to_i).to eq(integer_value)
+      end
+
+      it 'converts integer value to RomanNumber' do
+        expect(described_class.convert_from_integer(integer_value).to_s).to eq(roman_value)
       end
     end
   end
@@ -79,10 +81,8 @@ RSpec.describe RomanNumber do
     ])
 
     with_them do
-      let(:roman_number) { described_class.new(roman_value) }
-
       it 'raise ArgumentError' do
-        expect { roman_number }.to raise_error(ArgumentError, 'Invalid Roman Number')
+        expect { described_class.new(roman_value) }.to raise_error(ArgumentError, "Invalid Roman Number, #{roman_value}")
       end
     end
   end
