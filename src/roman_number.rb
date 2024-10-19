@@ -16,31 +16,23 @@ class RomanNumber
       raise ArgumentError, 'Not integer.' unless value.is_a?(Integer)
       raise ArgumentError, 'Out of range (0..3999)' unless (0..3999).cover?(value)
 
-      tmp_value = value
-      chars = []
+      roman_value = ''
 
-      chars << 'M' * (tmp_value / 1000)
-      tmp_value %= 1000
-
-      chars << 'C' * (tmp_value / 100)
-      tmp_value %= 100
-
-      chars << 'X' * (tmp_value / 10)
-      tmp_value %= 10
-
-      chars << 'I' * tmp_value
+      [1000, 100, 10, 1].inject(value) do |result, divisor|
+        roman_value += CHAR_INT_MAP.invert[divisor] * (result / divisor)
+        result % divisor
+      end
 
       RomanNumber.new(
-        chars.join
-             .gsub(/C{9}/, 'CM')
-             .gsub(/C{5}/, 'D')
-             .gsub(/C{4}/, 'CD')
-             .gsub(/X{9}/, 'XC')
-             .gsub(/X{5}/, 'L')
-             .gsub(/X{4}/, 'XL')
-             .gsub(/I{9}/, 'IX')
-             .gsub(/I{5}/, 'V')
-             .gsub(/I{4}/, 'IV')
+        roman_value.gsub(/C{9}/, 'CM')
+                   .gsub(/C{5}/, 'D')
+                   .gsub(/C{4}/, 'CD')
+                   .gsub(/X{9}/, 'XC')
+                   .gsub(/X{5}/, 'L')
+                   .gsub(/X{4}/, 'XL')
+                   .gsub(/I{9}/, 'IX')
+                   .gsub(/I{5}/, 'V')
+                   .gsub(/I{4}/, 'IV')
       )
     end
   end
