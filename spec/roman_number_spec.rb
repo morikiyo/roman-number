@@ -41,6 +41,8 @@ RSpec.describe RomanNumber do
         ['MMM', 3000],
 
         ['MMMCMXCIX', 3999],
+        ['MDCLXXVIII', 1678],
+        ['MXXI', 1021],
       ]
     end
 
