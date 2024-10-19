@@ -16,11 +16,11 @@ class RomanNumber
       raise ArgumentError, 'Not integer.' unless value.is_a?(Integer)
       raise ArgumentError, 'Out of range (0..3999)' unless (0..3999).cover?(value)
 
-      roman_value = ''
-
-      [1000, 100, 10, 1].inject(value) do |result, divisor|
-        roman_value += CHAR_INT_MAP.invert[divisor] * (result / divisor)
-        result % divisor
+      roman_value, _ = [1000, 100, 10, 1].inject(['', value]) do |(s, i), divisor|
+        [
+          s + CHAR_INT_MAP.invert[divisor] * (i / divisor),
+          i % divisor
+        ]
       end
 
       RomanNumber.new(
@@ -48,12 +48,12 @@ class RomanNumber
   end
 
   def to_i
-    @value.gsub('IV','IIII')
-          .gsub('IX','VIIII')
-          .gsub('XL','XXXX')
-          .gsub('XC','LXXXX')
-          .gsub('CD','CCCC')
-          .gsub('CM','DCCCC')
+    @value.gsub('IV', 'IIII')
+          .gsub('IX', 'VIIII')
+          .gsub('XL', 'XXXX')
+          .gsub('XC', 'LXXXX')
+          .gsub('CD', 'CCCC')
+          .gsub('CM', 'DCCCC')
           .chars
           .map { |char| CHAR_INT_MAP[char] }.sum
   end
