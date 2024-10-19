@@ -11,15 +11,6 @@ class RomanNumber
     'M' => 1000
   }.freeze
 
-  NORMALIZATION_MAP = {
-    'IV' => 'IIII',
-    'IX' => 'VIIII',
-    'XL' => 'XXXX',
-    'XC' => 'LXXXX',
-    'CD' => 'CCCC',
-    'CM' => 'DCCCC',
-  }
-
   class << self
     def convert_from_integer(value)
       raise ArgumentError, 'Not integer.' unless value.is_a?(Integer)
@@ -71,8 +62,11 @@ class RomanNumber
   private
 
     def normalize_value
-      RomanNumber::NORMALIZATION_MAP.inject(@value) do |value, (from_str, to_str)|
-        value.gsub(from_str, to_str)
-      end
+      @value.gsub('IV','IIII')
+            .gsub('IX','VIIII')
+            .gsub('XL','XXXX')
+            .gsub('XC','LXXXX')
+            .gsub('CD','CCCC')
+            .gsub('CM','DCCCC')
     end
 end
