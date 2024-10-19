@@ -15,7 +15,6 @@ class RomanNumber
     raise ArgumentError, 'Invalid Roman Number' unless value.match?(FORMAT)
 
     @value = value
-    @normalized_value = normalize_value(value)
   end
 
   def to_s
@@ -23,17 +22,17 @@ class RomanNumber
   end
 
   def to_i
-    @normalized_value.chars.map { |char| CHAR_INT_MAP[char] }.sum
+    normalize_value.chars.map { |char| CHAR_INT_MAP[char] }.sum
   end
 
   private
 
-    def normalize_value(value)
-      value.gsub('IV', 'IIII')
-           .gsub('IX', 'VIIII')
-           .gsub('XL', 'XXXX')
-           .gsub('XC', 'LXXXX')
-           .gsub('CD', 'CCCC')
-           .gsub('CM', 'DCCCC')
+    def normalize_value
+      @value.gsub('IV', 'IIII')
+            .gsub('IX', 'VIIII')
+            .gsub('XL', 'XXXX')
+            .gsub('XC', 'LXXXX')
+            .gsub('CD', 'CCCC')
+            .gsub('CM', 'DCCCC')
     end
 end
